@@ -57,6 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
+        foreach($results as $k => $row) {
+            foreach($row as $columnName => $columnValue) {
+                if($columnValue === '' || $columnValue === null) {
+                    unset($results[$k][$columnName]);
+                }
+            }
+        }
+
         foreach($results as $row) {
             foreach($steps as $k => $v) {
                 if(array_key_exists($k, $row) && $row[$k] !== '') $steps[$k] = true;
@@ -65,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         header('Content-Type: application/json');
         echo json_encode($steps);
+        // echo json_encode($results);
     } else {
         echo json_encode(['error' => 'Invalid email format']);
     }
