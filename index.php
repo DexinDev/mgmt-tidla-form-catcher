@@ -19,8 +19,13 @@ $steps = [
     'office' => false,
     'store' => false,
     'rc' => false,
-    'general' => false
+    'general' => false,
+    'bf' => false,
+    'factory' => false,
+    'pharmacy' => false,
+    'delivery' => false,
 ];
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $postData = file_get_contents('php://input');
@@ -73,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         header('Content-Type: application/json');
         echo json_encode($steps);
-        // echo json_encode($results);
+
     } else {
         echo json_encode(['error' => 'Invalid email format']);
     }
