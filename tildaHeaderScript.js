@@ -6,16 +6,17 @@ const checkStep = (() => {
 
     const redirect = ((stepsProgress) => {
         const stepsOrder = [
-            'cosmetic',
-            'atp',
-            'office',
             'store',
+            'atp',
             'rc',
-            'general',
+            'office',
             'bf',
+            'cosmetic',
             'factory',
             'pharmacy',
             'delivery',
+            'general',
+            'final',
         ];
 
         const stepsCount = stepsOrder.length;
@@ -28,16 +29,16 @@ const checkStep = (() => {
             complete = stepsProgress[stepsOrder[nextStep]];
         }
 
-        location.replace(``);
+        if(location.pathname !== `/${stepsOrder[nextStep]}`) location.replace(`/${stepsOrder[nextStep]}`);
 
     });
     
-    fetch('https://backend.url', {method: 'post', body: JSON.stringify({ email: email })})
+    fetch('https://drt.bathyscaph.ru/', {method: 'post', body: JSON.stringify({ email: email })})
     .then((response) => response.json())
 
     /** Redirect user to the next step. */
     .then((data) => {
-        
+        redirect(data);
     });
 
 

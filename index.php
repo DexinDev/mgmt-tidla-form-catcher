@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // ID таблицы и диапазон
         $spreadsheetId = '1AoU58orVL4xyI6IeW1IjW7o2-Hrl5rCp6QfC5pk9AFI';
-        $range = 'Sheet1!A1:Z';
+        $range = 'Sheet1!A1:CA';
 
         // Чтение данных из таблицы
         $response = $service->spreadsheets_values->get($spreadsheetId, $range);
