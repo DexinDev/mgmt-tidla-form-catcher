@@ -24,6 +24,7 @@ $steps = [
     'factory' => false,
     'pharmacy' => false,
     'delivery' => false,
+    'final' => false,
 ];
 
 

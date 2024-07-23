@@ -3,41 +3,44 @@ const checkStep = (() => {
     if(!localStorage.tilda_members_profile9985797 || location.pathname.search('members') >= 0) return false;
     
     const email = JSON.parse(localStorage.tilda_members_profile9985797).login;
+
+    const redirect = ((stepsProgress) => {
+        const stepsOrder = [
+            'cosmetic',
+            'atp',
+            'office',
+            'store',
+            'rc',
+            'general',
+            'bf',
+            'factory',
+            'pharmacy',
+            'delivery',
+        ];
+
+        const stepsCount = stepsOrder.length;
+
+        let complete = stepsProgress[stepsOrder[0]];
+        let nextStep = 0;
+
+        while(complete == true) {
+            nextStep++;
+            complete = stepsProgress[stepsOrder[nextStep]];
+        }
+
+        location.replace(``);
+
+    });
     
     fetch('https://backend.url', {method: 'post', body: JSON.stringify({ email: email })})
     .then((response) => response.json())
 
-    /** Redirect user to the next step.
-     * Steps are:
-     *  cosmetic,
-     *  atp,
-     *  office,
-     *  store,
-     *  rc,
-     *  general,
-     *  bf,
-     *  factory,
-     *  pharmacy,
-     *  delivery
-    */
-
+    /** Redirect user to the next step. */
     .then((data) => {
-        if(data.cosmetic && data.atp && data.office && data.store && data.rc && data.general) {
-            if(location.pathname !== '/final') location.replace('/final');
-        } else if(data.cosmetic && data.atp && data.office && data.store && data.rc) {
-            if(location.pathname !== '/general') location.replace('/general');
-        } else if(data.cosmetic && data.atp && data.office && data.store) {
-            if(location.pathname !== '/rc') location.replace('/rc');
-        } else if(data.cosmetic && data.atp && data.office) {
-            if(location.pathname !== '/store') location.replace('/store');
-        } else if(data.cosmetic && data.atp) {
-            if(location.pathname !== '/office') location.replace('/office');
-        } else if(data.cosmetic) {
-            if(location.pathname !== '/atp') location.replace('/atp');
-        } else {
-           if(location.pathname !== '/cosmetic') location.replace('/cosmetic'); 
-        }
+        
     });
+
+
 
 });
 
